@@ -28,7 +28,7 @@ typedef enum _NSBubbleTypingType
     IBOutlet UIBubbleTableViewCell *bubbleCell;
 }
 
-@property (nonatomic, assign) id<UIBubbleTableViewDataSource> bubbleDataSource;
+@property (nonatomic, unsafe_unretained) id<UIBubbleTableViewDataSource> bubbleDataSource;
 @property (nonatomic) NSTimeInterval snapInterval;
 @property (nonatomic) NSBubbleTypingType typingBubble;
 

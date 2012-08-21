@@ -22,13 +22,5 @@
 @synthesize height = _height;
 @synthesize labelSize = _labelSize;
 
-- (void)dealloc
-{
-	[_data release];
-	_data = nil;
-	[_header release];
-	_header = nil;
-    [super dealloc];
-}
 
 @end

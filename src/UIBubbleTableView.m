@@ -17,7 +17,7 @@
 
 @interface UIBubbleTableView ()
 
-@property (nonatomic, retain) NSMutableDictionary *bubbleDictionary;
+@property (nonatomic, strong) NSMutableDictionary *bubbleDictionary;
 
 @end
 
@@ -77,10 +77,7 @@
 
 - (void)dealloc
 {
-    [_bubbleDictionary release];
-	_bubbleDictionary = nil;
 	_bubbleDataSource = nil;
-    [super dealloc];
 }
 
 #pragma mark - Override
@@ -92,11 +89,11 @@
     
     // Loading new data
     int count = 0;
-    self.bubbleDictionary = [[[NSMutableDictionary alloc] init] autorelease];
+    self.bubbleDictionary = [[NSMutableDictionary alloc] init];
     
     if (self.bubbleDataSource && (count = [self.bubbleDataSource rowsForBubbleTable:self]) > 0)
     {        
-        NSMutableArray *bubbleData = [[[NSMutableArray alloc] initWithCapacity:count] autorelease];
+        NSMutableArray *bubbleData = [[NSMutableArray alloc] initWithCapacity:count];
         
         for (int i = 0; i < count; i++)
         {
@@ -123,7 +120,7 @@
         
         for (int i = 0; i < count; i++)
         {
-            NSBubbleDataInternal *dataInternal = [[[NSBubbleDataInternal alloc] init] autorelease];
+            NSBubbleDataInternal *dataInternal = [[NSBubbleDataInternal alloc] init];
             
             dataInternal.data = (NSBubbleData *)[bubbleData objectAtIndex:i];
             dataInternal.type = NSBubbleDataTypeNormalBubble;
@@ -137,7 +134,7 @@
             
             if ([dataInternal.data.date timeIntervalSinceDate:last] > self.snapInterval)
             {
-                currentSection = [[[NSMutableArray alloc] init] autorelease];
+                currentSection = [[NSMutableArray alloc] init];
                 [self.bubbleDictionary setObject:currentSection forKey:[NSString stringWithFormat:@"%d", i]];
                 dataInternal.header = [dateFormatter stringFromDate:dataInternal.data.date];
                 dataInternal.height += 30;
@@ -147,14 +144,13 @@
             last = dataInternal.data.date;
         }
         
-        [dateFormatter release];
     }
     
     // Adding the typing bubble at the end of the table
     
     if (self.typingBubble != NSBubbleTypingTypeNobody)
     {
-        NSBubbleDataInternal *dataInternal = [[[NSBubbleDataInternal alloc] init] autorelease];
+        NSBubbleDataInternal *dataInternal = [[NSBubbleDataInternal alloc] init];
         
         dataInternal.data = nil;
         dataInternal.type = NSBubbleDataTypeTypingBubble;
@@ -250,7 +246,7 @@
             
             UIImageView *bubbleImageView = [[UIImageView alloc] initWithImage:bubbleImage];
             bubbleImageView.frame = CGRectMake(x, 4, 73, 31);
-            [cell addSubview:[bubbleImageView autorelease]];
+            [cell addSubview:bubbleImageView];
         }
         
         return cell;

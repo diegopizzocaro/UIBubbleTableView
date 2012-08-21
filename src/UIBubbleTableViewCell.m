@@ -31,16 +31,12 @@
 
 - (void) dealloc
 {
-    [_dataInternal release];
 	_dataInternal = nil;
-    [super dealloc];
 }
 
 
 - (void)setDataInternal:(NSBubbleDataInternal *)value
 {
-	[value retain];
-	[_dataInternal release];
 	_dataInternal = value;
 	[self setupInternalData];
 }
